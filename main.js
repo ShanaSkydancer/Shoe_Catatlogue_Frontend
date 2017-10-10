@@ -1,6 +1,6 @@
 //All variables needed from HTML etc
 const xhr = new XMLHttpRequest();
-const urlCall = "http://localhost:3000/api/shoes/";
+const urlCall = "http://localhost:3000/api/shoes";
 // const urlCall = "https://codex-shoe-catalogue-api.herokuapp.com/api/shoes/";
 const shoeTable = document.querySelector('.shoeTable').innerHTML;
 const shoeDisplay = document.querySelector('.shoeDisplay').innerHTML;
@@ -17,6 +17,10 @@ $('#myModal').on('shown.bs.modal', () => {
     $('#myInput').focus()
 });
 
+// $(document).ready(() => {
+//   $("#myModal").modal();
+// });
+
 //Get all shoes from the DB
 $(document).ready(() => {
   $.ajax({
@@ -32,7 +36,7 @@ $(document).ready(() => {
 });
 
 //Add a shoe
-$('.submitButton').on('click',() => {
+$('.addButton').on('click',() => {
   
   const shoes = {
       brand: document.querySelector('#brand').value,
@@ -64,46 +68,46 @@ $('.submitButton').on('click',() => {
 })
 
 //Edit a shoe
-$('.editButton').on('click', () => {
-  const $amount = $('.in_stock');
-  if ($in_stock.val().length > 0) {
-    $.ajax({
-      type: "POST",
-      url: urlCall + '/id/' + _id + '/in_stock/' + $in_stock.val()
-    }).done((ShoeData) => {
-      alert("Shoe has been updated!");
-    });
-  } else {
-    alert("Please enter stock amount!");
-  }
-});
+// $('.editButton').on('click', () => {
+//   const $amount = $('.in_stock');
+//   if ($in_stock.val().length > 0) {
+//     $.ajax({
+//       type: "POST",
+//       url: urlCall + '/id/' + _id + '/in_stock/' + $in_stock.val()
+//     }).done((ShoeData) => {
+//       alert("Shoe has been updated!");
+//     });
+//   } else {
+//     alert("Please enter stock amount!");
+//   }
+// });
 
 //Buy a shoe
-$('.shoeTable').on('click', (e) => {
-  const soldShoe = e.target.value;
+// $('.shoeTable').on('click', (e) => {
+//   const soldShoe = e.target.value;
 
-  $.ajax({
-      type: "POST",
-      url: urlCall + '/sold/' + soldShoe,
-      success: (result, reload) => {
-          alert("You have purchased a shoe!")
-          location.reload(reload);
-      }
-  })
-})
+//   $.ajax({
+//       type: "POST",
+//       url: urlCall + '/sold/' + soldShoe,
+//       success: (result, reload) => {
+//           alert("You have purchased a shoe!")
+//           location.reload(reload);
+//       }
+//   })
+// })
 
 //Delete a shoe
-$('.deleteButton').on('click', (e) => {
-const currentShoe = e.target.value;
+// $('.deleteButton').on('click', (e) => {
+// const currentShoe = e.target.value;
 
-  $.ajax({
-    url: urlCall + '?' + currentShoe,
-    type: 'DELETE',
-    success: () => {
-      alert('Shoe deleted!')
-    },
-    error: (err) => {
-      console.error(err);
-    }
-  })
-});
+//   $.ajax({
+//     url: urlCall + '?' + currentShoe,
+//     type: 'DELETE',
+//     success: () => {
+//       alert('Shoe deleted!')
+//     },
+//     error: (err) => {
+//       console.error(err);
+//     }
+//   })
+// });
