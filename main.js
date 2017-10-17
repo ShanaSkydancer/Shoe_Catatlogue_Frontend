@@ -51,13 +51,14 @@ $('.addButton').on('click',() => {
     type: "POST",
     url: urlCall,
     data: shoes,
-    success: (err, result) => {
-      console.error(err);
-    },
-    else(result) {
-      console.log(results);
-      console.log(success);
-      }
+    success: (result, reload) => {
+      location.reload(reload);
+      // console.error(err);
+    }
+    // else(reload) {
+    //   console.log(results);
+    //   console.log(success);
+    //   }
   })
 
     brand.value = " ";
