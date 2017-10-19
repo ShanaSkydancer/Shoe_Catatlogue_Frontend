@@ -14,4 +14,14 @@ body {
   .navbar-brand {
     font-family: 'Germania One', cursive;
   }
+
+  .searchButton {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+  }
   
+  .addButton {
+    margin-top: 2em; 
+    margin-bottom: 1em;   
+  }

@@ -1,7 +1,7 @@
 //All variables needed from HTML etc
-const xhr = new XMLHttpRequest();
-const urlCall = "http://localhost:3000/api/shoes";
-// const urlCall = "https://codex-shoe-catalogue-api.herokuapp.com/api/shoes/";
+// const xhr = new XMLHttpRequest();
+// const urlCall = "http://localhost:3000/api/shoes";
+const urlCall = "https://codex-shoe-catalogue-api.herokuapp.com/api/shoes";
 const shoeTable = document.querySelector('.shoeTable').innerHTML;
 const shoeDisplay = document.querySelector('.shoeDisplay').innerHTML;
 const output = Handlebars.compile(shoeDisplay);
@@ -9,10 +9,6 @@ const output = Handlebars.compile(shoeDisplay);
 const filterTable = document.querySelector('.filterTable').innerHTML;
 const filterDisplay = document.querySelector('.filterDisplay').innerHTML;
 const filterOutput = Handlebars.compile(filterDisplay);
-
-// const addButton = document.querySelector('.addButton').innerHTML;
-// const buyButton = document.querySelector('.buyButton').innerHTML;
-// const deleteButton = document.querySelector('.deleteButton').innerHTML;
 
 //Bootstrap modals
 $('#myModal').on('shown.bs.modal', () => {
@@ -27,18 +23,17 @@ $(document).ready(() => {
   })
   .then((shoeData) => {
     console.log(shoeData);
-    document.querySelector(".filterTable").innerHTML = filterOutput({
-      shoes: shoeData
-    })
     document.querySelector(".shoeTable").innerHTML = output({
         shoes: shoeData
+    })
+    document.querySelector(".filterTable").innerHTML = filterOutput({
+      shoes: shoeData
     })
   });
 });
 
 //Add a shoe
 $('.addButton').on('click',() => {
-  
   const shoes = {
       brand: document.querySelector('#brand').value,
       size: document.querySelector('#size').value,
@@ -46,33 +41,23 @@ $('.addButton').on('click',() => {
       price: document.querySelector('#price').value,
       in_stock: document.querySelector('#in_stock').value
   }
-
-  $.ajax({
-    type: "POST",
-    url: urlCall,
-    data: shoes,
-    success: (result, reload) => {
-      location.reload(reload);
-      // console.error(err);
-    }
-    // else(reload) {
-    //   console.log(results);
-    //   console.log(success);
-    //   }
-  })
-
-    brand.value = " ";
-    size.value = " ";
-    color.value = " ";
-    price.value = " ";
-    in_stock.value = " ";
-    alert("Shoe has been added!");
-    location.reload(reload);
+  if(brand.value !== "" && size.value !== "" && color.value !== "" && price.vaalue !== "" && in_stock.value !== ""){
+    $.ajax({
+      type: "POST",
+      url: urlCall,
+      data: shoes,
+      success: (result, reload) => {
+        alert("Shoe has been added!");
+        location.reload(reload);   
+        }
+    })
+    } else{
+      alert("Do not leave a field blank")
+    } 
 })
 
 //Buy a shoe
 $('.shoeTable').on('click', (e) => {
-
   if (e.target.className.includes('buyButton')) {
     const _id = e.target.value;
   
@@ -85,30 +70,63 @@ $('.shoeTable').on('click', (e) => {
         }
     })
   }
-})
+});
 
-//Delete a shoe
-// $('.deleteButton').on('click', (e) => {
-// const currentShoe = e.target.value;
+//Filter though shoes using the dropdowns and search button
+$('.filterTable').on('click', (e) => {
+  if (e.target.className.includes('searchButton')) {
+  const filter = e.target.value;
+  const brandOption = document.querySelector('#brandFilter').value;
+  console.log(brandOption);
+  const sizeOption = document.querySelector('#sizeFilter').value;
+  console.log(sizeOption);
+  // const colorOption = document.querySelector('#colorFilter').value;   
+  // console.log(colorOption);
 
-//   $.ajax({
-//     url: urlCall + '?' + currentShoe,
-//     type: 'DELETE',
-//     success: () => {
-//       alert('Shoe has been deleted!')
-//     },
-//     error: (err) => {
-//       console.error(err);
-//     }
-//   })
-// });
+    //Brand filter
+    if(brandOption !== "" && sizeOption == "Choose size"){
+      $.ajax({
+        url: urlCall + '/brand/' + brandOption,
+        type: "GET",
+        success: (shoeData, results) => {
+          document.querySelector(".shoeTable").innerHTML = output({
+              shoes: shoeData
+          })
+        }
+      })
+    }
 
-//Filter a shoe
-// $('.filterButton').on('click', (e) => {
-//   const currentFilter = e.target.value;
-//   const dropdownBrand = document.querySelector('.dropdownBrand').innerHTML;
-//   const dropdownSize = document.querySelector('.dropdownSize').innerHTML;
-//   const dropdownColor = document.querySelector('.dropdownColor').innerHTML;  
+    //Size filter
+    else if (sizeOption !== "" && brandOption == "Choose brand"){
+      $.ajax({
+        url: urlCall + '/size/' + sizeOption,
+        type: "GET",
+        success: (shoeData, results) => {
+          document.querySelector(".shoeTable").innerHTML = output({
+            shoes: shoeData
+          }) 
+        }
+      })
+    }
 
-
-// })
+    //Brand and size filter
+    else if(brandOption !== "" && sizeOption !== ""){
+      $.ajax({
+        url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
+        type: "GET",
+        async: true,
+        dataType: "json",
+        success: (shoeData, results) => {
+          // if(shoesData.brand === undefined || shoesData.size === undefined){
+          //   alert("Shoe brand does not exist");
+          // }
+          // else{ 
+            document.querySelector(".shoeTable").innerHTML = output({
+              shoes: shoeData
+            })
+          // }
+        }
+      })
+    }
+  }
+});

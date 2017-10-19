@@ -49,10 +49,6 @@
           </li>
           
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-          <input class="searchInput form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="searchButton btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
       </div>
     </nav>
 
@@ -60,7 +56,7 @@
 
       <div class="display-body">
         <h1>Shana's Shoes</h1>
-        <p class="lead">Welcome to the best shoe catalogue in Cape Town.<br> You'll find all the best shoes in one place.</p>
+        <p class="lead">Welcome to the best shoe catalogue in Cape Town.<br> Here you'll find all the best shoes in one place.</p>
       </div>
 
         <div class="table-body">
@@ -71,58 +67,46 @@
                     <h2>All Available Shoes</h2>
                 <p data-placement="top" data-toggle="tooltip" title="Add"><button class="btn btn-success btn-xs float-right" data-title="Add" data-toggle="modal" data-target="#add"><i class="material-icons">add</i> </button></p>
 
-                    
+                <!-- Dropdown display -->
                 <div class="filterTable col-md-12">                                
                 <script class="filterDisplay" type="text/handlebars-x">                            
                     <div class="dropdownMenus col-md-12">
                         <div class="dropdown float-left">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Brand
-                            </button>
-                            <div class="dropdown-menu dropdownBrand" aria-labelledby="dropdownMenuButton">
-                                {{#each shoes}}
-                                <li value="{{this}}"><a class="dropdown-item" value="{{this}}">{{this.brand}}</a></li>
-                                {{/each}}
-                            </div>
+                        <label for='brandFilter'>Brand</label>
+                        <select id='brandFilter' class='form-control'>
+                        <option>Choose brand</option>
+                        {{#each shoes}}
+                            <option class="brandOption" id="brandOption value="{{this}}">{{this.brand}}</option>
+                        {{/each}}
+                        </select>
                         </div>
+
     
                         <div class="dropdown float-left">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Size
-                            </button>
-                            <div class="dropdown-menu dropdownSize" aria-labelledby="dropdownMenuButton">
+                            <label for='sizeFilter'>Size</label>
+                            <select id='sizeFilter' class='form-control'>
+                            <option>Choose size</option>
                             {{#each shoes}}
-                            <a class="dropdown-item" value="{{this}}">{{this.size}}</a></li>
+                                <option class="sizeOption" id="sizeOption value="{{this}}">{{this.size}}</option>
                             {{/each}}
-                            </div>
+                            </select>
                         </div>
     
-                        <div class="dropdown float-left">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Color
-                            </button>
-                            <div class="dropdown-menu dropdownColor" aria-labelledby="dropdownMenuButton">
-                            {{#each shoes}}
-                            <li value="{{this}}"><a class="dropdown-item" value="{{this}}">{{this.color}}</a></li>
-                            {{/each}}
-                            </div>
-                        </div>
-    
-                        <p data-placement="top" data-toggle="tooltip" title="Search"><button class="filterButton btn btn-success btn-xs float-left" data-title="Search">Search </button></p>                    
+                        <p data-placement="top" data-toggle="tooltip" title="Search"><button class="searchButton btn btn-success btn-xs float-left" data-title="Search">Search </button></p>                    
                     </div>
                 </script>
             </div>
             <br>
             <br>
                 
+            <!-- Table display -->
             <div class="table-responsive">
                 <div class="shoeTable ">
                 <script class="shoeDisplay" type="text/handlebars-x">
 
-                <table id="mytable" class="table table-bordred table-striped">
+                <table id="myTable" class="table table-bordred table-striped">
                     <thead>
                         
-                        <th><input type="checkbox" id="checkall" /></th>
                         <th>Brand</th>
                         <th>Size</th>
                         <th>Color</th>
@@ -136,7 +120,6 @@
                     <tbody>
                     
                         <tr>
-                        <td><input type="checkbox" class="checkthis" /></td>
                             <td>{{brand}}</td>
                             <td>{{size}}</td>
                             <td>{{color}}</td>
