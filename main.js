@@ -83,8 +83,21 @@ $('.filterTable').on('click', (e) => {
   // const colorOption = document.querySelector('#colorFilter').value;   
   // console.log(colorOption);
 
+  //Show all shoes if Brand and Size are on default
+  if(brandOption == "Choose brand" && sizeOption == "Choose size"){
+    $.ajax({
+      url: urlCall,
+      type: "GET",
+      success: (shoeData, results) => {
+        document.querySelector(".shoeTable").innerHTML = output({
+            shoes: shoeData
+        })
+      }
+    })
+  }
+
     //Brand filter
-    if(brandOption !== "" && sizeOption == "Choose size"){
+    else if(brandOption !== "" && sizeOption == "Choose size"){
       $.ajax({
         url: urlCall + '/brand/' + brandOption,
         type: "GET",
