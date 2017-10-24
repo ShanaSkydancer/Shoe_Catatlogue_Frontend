@@ -130,14 +130,14 @@ $('.filterTable').on('click', (e) => {
         // async: true,
         // dataType: "json",
         success: (shoeData, results) => {
-          // if(shoesData.brand === undefined || shoesData.size === undefined){
-          //   alert("Shoe brand does not exist");
-          // }
-          // else{ 
+          if(shoesData.brand === undefined || shoesData.size === undefined){
+            alert("Shoe brand does not exist");
+          }
+          else{ 
             document.querySelector(".shoeTable").innerHTML = output({
               shoes: shoeData
             })
-          // }
+          }
         }
       })
     }
