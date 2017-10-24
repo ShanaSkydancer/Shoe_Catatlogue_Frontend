@@ -124,6 +124,8 @@ $('.filterTable').on('click', (e) => {
 
     //Brand and size filter
     else if (brandOption !== "" && sizeOption !== ""){
+      console.log("Hello");
+      console.log(urlCall + '/brand/' + brandOption + '/size/' + sizeOption);
       $.ajax({
         type: "GET",
         url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
