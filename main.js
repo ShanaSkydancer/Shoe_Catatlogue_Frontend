@@ -128,14 +128,14 @@ $('.filterTable').on('click', (e) => {
         url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
         type: "GET",
         success: (shoeData, results) => {
-          if(shoesData.brandOption === undefined || shoesData.sizeOption === undefined){
-            alert("Shoe brand does not exist");
-          }
-          else{ 
+          // if(shoesData.brand === undefined || shoesData.size === undefined){
+          //   alert("Shoe brand does not exist");
+          // }
+          // else{ 
             document.querySelector(".shoeTable").innerHTML = output({
               shoes: shoeData
             })
-          }
+          // }
         }
       })
     }
