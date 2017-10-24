@@ -123,7 +123,7 @@ $('.filterTable').on('click', (e) => {
     }
 
     //Brand and size filter
-    else if (brandOption !== "" && sizeOption !== ""){
+    else {
       console.log("Hello");
       console.log(urlCall + '/brand/' + brandOption + '/size/' + sizeOption);
       $.ajax({
