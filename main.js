@@ -127,10 +127,8 @@ $('.filterTable').on('click', (e) => {
       $.ajax({
         url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
         type: "GET",
-        // async: true,
-        // dataType: "json",
         success: (shoeData, results) => {
-          if(shoesData.brand === undefined || shoesData.size === undefined){
+          if(shoesData.brandOption === undefined || shoesData.sizeOption === undefined){
             alert("Shoe brand does not exist");
           }
           else{ 
