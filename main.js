@@ -1,5 +1,5 @@
 //All variables needed from HTML etc
-// const xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 // const urlCall = "http://localhost:3000/api/shoes";
 const urlCall = "https://codex-shoe-catalogue-api.herokuapp.com/api/shoes";
 const shoeTable = document.querySelector('.shoeTable').innerHTML;
@@ -41,7 +41,7 @@ $('.addButton').on('click',() => {
       price: document.querySelector('#price').value,
       in_stock: document.querySelector('#in_stock').value
   }
-  if(brand.value !== "" && size.value !== "" && color.value !== "" && price.vaalue !== "" && in_stock.value !== ""){
+  if (brand.value !== "" && size.value !== "" && color.value !== "" && price.vaalue !== "" && in_stock.value !== "") {
     $.ajax({
       type: "POST",
       url: urlCall,
@@ -51,7 +51,7 @@ $('.addButton').on('click',() => {
         location.reload(reload);   
         }
     })
-    } else{
+    } else {
       alert("Do not leave a field blank")
     } 
 })
@@ -84,10 +84,10 @@ $('.filterTable').on('click', (e) => {
   // console.log(colorOption);
 
   //Show all shoes if Brand and Size are on default
-  if(brandOption == "Choose brand" && sizeOption == "Choose size"){
+  if (brandOption == "Choose brand" && sizeOption == "Choose size") {
     $.ajax({
-      url: urlCall,
       type: "GET",
+      url: urlCall,
       success: (shoeData, results) => {
         document.querySelector(".shoeTable").innerHTML = output({
             shoes: shoeData
@@ -97,10 +97,10 @@ $('.filterTable').on('click', (e) => {
   }
 
     //Brand filter
-    else if(brandOption !== "" && sizeOption == "Choose size"){
+    else if (brandOption !== "" && sizeOption == "Choose size") {
       $.ajax({
-        url: urlCall + '/brand/' + brandOption,
         type: "GET",
+        url: urlCall + '/brand/' + brandOption,
         success: (shoeData, results) => {
           document.querySelector(".shoeTable").innerHTML = output({
               shoes: shoeData
@@ -110,10 +110,10 @@ $('.filterTable').on('click', (e) => {
     }
 
     //Size filter
-    else if (sizeOption !== "" && brandOption == "Choose brand"){
+    else if (sizeOption !== "" && brandOption == "Choose brand") {
       $.ajax({
-        url: urlCall + '/size/' + sizeOption,
         type: "GET",
+        url: urlCall + '/size/' + sizeOption,
         success: (shoeData, results) => {
           document.querySelector(".shoeTable").innerHTML = output({
             shoes: shoeData
@@ -123,20 +123,20 @@ $('.filterTable').on('click', (e) => {
     }
 
     //Brand and size filter
-    else if(brandOption !== "" && sizeOption !== ""){
+    else if (brandOption !== "" && sizeOption !== ""){
       $.ajax({
-        url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
         type: "GET",
+        url: urlCall + '/brand/' + brandOption + '/size/' + sizeOption,
         success: (shoeData, results) => {
-          // if(shoesData.brand === undefined || shoesData.size === undefined){
+          // if (shoesData.brand === undefined || shoesData.size === undefined) {
           //   alert("Shoe brand does not exist");
           // }
-          // else{ 
+          // else { 
             document.querySelector(".shoeTable").innerHTML = output({
               shoes: shoeData
             })
-          // }
-        }
+          }
+        // }
       })
     }
   }
