@@ -135,8 +135,8 @@ $('.filterTable').on('click', (e) => {
             document.querySelector(".shoeTable").innerHTML = output({
               shoes: shoeData
             })
-          }
-        // }
+          // }
+        }
       })
     }
   }
